@@ -29,7 +29,7 @@ public class MainActivity extends ActionBarActivity {
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle;
-    private String URL ="http://www.flipkartdiscount.net";
+    private String URL ="http://www.flipkartdiscounts.net";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

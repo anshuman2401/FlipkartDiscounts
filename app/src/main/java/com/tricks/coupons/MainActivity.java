@@ -53,23 +53,13 @@ public class MainActivity extends ActionBarActivity implements ListView.OnItemCl
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        startWebView(URL);
-
-
-
-    }
-
-
-    //Making webView
-    public void startWebView(String url){
-
 
         //Checking if internet connection is available or not
         final ConnectivityManager conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         final NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
 
         if(activeNetwork!=null && activeNetwork.isConnected()){
-
+            startWebView(URL);
         }
         else {
             // notify user you are not online
@@ -78,6 +68,12 @@ public class MainActivity extends ActionBarActivity implements ListView.OnItemCl
 
         }
 
+
+    }
+
+
+    //Making webView
+    public void startWebView(String url){
 
         webView = (WebView)findViewById(R.id.webView);
         final ProgressDialog pd = ProgressDialog.show(MainActivity.this, "", "Loading...", true);
@@ -131,7 +127,6 @@ public class MainActivity extends ActionBarActivity implements ListView.OnItemCl
                         webView.loadUrl(URL);
 
                     case 1:
-
                         break;
                     case 2:
                         break;
@@ -139,6 +134,7 @@ public class MainActivity extends ActionBarActivity implements ListView.OnItemCl
 
                         break;
                     case 4:
+
                         break;
                     case 5:
 
@@ -201,24 +197,39 @@ public class MainActivity extends ActionBarActivity implements ListView.OnItemCl
         return true;
     }
 
+    // 3 dot menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        if(id==R.id.refresh){
-            webView.reload();
+       try {
+
+           int id = item.getItemId();
+
+
+           if (id == R.id.refresh) {
+               webView.reload();
+           }
+
+           // Activate the navigation drawer toggle
+           if (mDrawerToggle.onOptionsItemSelected(item)) {
+               return true;
+           }
+
+           return super.onOptionsItemSelected(item);
+       }
+       //App Closing after pressing refresh option
+       catch (Exception e){
+           Toast.makeText(this, "No Internet Connection Detected", Toast.LENGTH_LONG).show();
+             return false;
         }
 
-        // Activate the navigation drawer toggle
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
         }
 
-        return super.onOptionsItemSelected(item);
-    }
+
+
      @Override
         // Detect when the back button is pressed
      public void onBackPressed() {
@@ -233,5 +244,10 @@ public class MainActivity extends ActionBarActivity implements ListView.OnItemCl
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+    }
+
+    public void exitButton(View v){
+        finish();
+        System.exit(0);
     }
 }

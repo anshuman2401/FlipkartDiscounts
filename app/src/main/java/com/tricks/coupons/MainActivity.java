@@ -93,6 +93,7 @@ public class MainActivity extends ActionBarActivity implements ListView.OnItemCl
             //Show PRogress dialog
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
+
                 pd.show();
             }
 
@@ -111,7 +112,7 @@ public class MainActivity extends ActionBarActivity implements ListView.OnItemCl
     }
 
     private void addDrawerItems() {
-        String[] osArray = {"Home", "About Us", "Policy", "Switch Theme","Report a Bug", "Exit"};
+        String[] osArray = {"Home", "About Us", "Policy","Contact Us", "Exit"};
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
 
@@ -127,18 +128,15 @@ public class MainActivity extends ActionBarActivity implements ListView.OnItemCl
                         webView.loadUrl(URL);
 
                     case 1:
+                        webView.loadUrl("http://www.flipkartdiscounts.net/p/about-us.html?m=1");
                         break;
                     case 2:
+                        webView.loadUrl("http://www.flipkartdiscounts.net/p/privacy-policy.html?m=1");
                         break;
                     case 3:
-
+                        webView.loadUrl("http://www.flipkartdiscounts.net/p/contact-us.html?m=1");
                         break;
                     case 4:
-
-                        break;
-                    case 5:
-
-                    case 6:
                         finish();
                         System.exit(0);
                         break;

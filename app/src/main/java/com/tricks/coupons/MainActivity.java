@@ -2,10 +2,12 @@ package com.tricks.coupons;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -86,6 +88,21 @@ public class MainActivity extends ActionBarActivity implements ListView.OnItemCl
 
         //without this Every page will be shown in browser
         webView.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+                //Open different url in default browser
+                String home = "http://www.flipkartdiscounts";
+                if (url!=null && url.startsWith(home)){
+                    return false;
+                }else{
+                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(i);
+                }
+                return true;
+            }
+
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
             }
@@ -104,7 +121,6 @@ public class MainActivity extends ActionBarActivity implements ListView.OnItemCl
                     pd.dismiss();
 
             }
-
 
         });
         webView.loadUrl(url);
@@ -125,7 +141,8 @@ public class MainActivity extends ActionBarActivity implements ListView.OnItemCl
                 switch (position) {
 
                     case 0:
-                        webView.loadUrl(URL);
+                        webView.loadUrl("http://www.flipkartdiscounts.net/");
+                        break;
 
                     case 1:
                         webView.loadUrl("http://www.flipkartdiscounts.net/p/about-us.html?m=1");
@@ -144,12 +161,9 @@ public class MainActivity extends ActionBarActivity implements ListView.OnItemCl
                 }
 
             }
-
-
         });
 
 }
-
 
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
